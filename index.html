@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Mason Infinity Scroll Test Page</title>
+    <style>
+        .container {
+            width: 100%;
+            position: relative;
+        }
+        .box {
+            float: left;
+            background-color: #737373;
+            position: relative;
+        }
+        .filler {
+            float: left;
+            position: relative;
+        }
+        .filler-style-1 {
+            background-color: #65aae2;
+        }
+        .filler-style-2 {
+            background-color: #eb8079;
+        }
+        .filler-style-3 {
+            background-color: #85e26a;
+        }
+        .filler-style-4 {
+            background-color: #ebe077;
+        }
+        .page-style-1 {
+            background-color: #e1e1e1;
+        }
+        .page-style-2 {
+            background-color: #cdcdcd;
+        }
+        .append-more-button {
+            width: 100%;
+            height: 50px;
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <div id="page-1" class="container page-style-1">
+
+        <div class="box post-1x1">Post 1</div>
+        <div class="box post-1x1">Post 2</div>
+        <div class="box post-1x1">Post 3</div>
+        <div class="box post-1x1">Post 4</div>
+        <div class="box post-1x1">Post 5</div>
+        <div class="box post-1x1">Post 6</div>
+        <div class="box post-1x1">Post 7</div>
+        <div class="box post-1x1">Post 8</div>
+        <div class="box post-1x1">Post 9</div>
+        <div class="box post-1x1">Post 10</div>
+        <div class="box post-1x1">Post 11</div>
+        <div class="box post-1x1">Post 12</div>
+        <div class="box post-1x1">Post 13</div>
+        <div class="box post-1x1">Post 14</div>
+        <div class="box post-1x1">Post 15</div>
+        <div class="box post-1x1">Post 16</div>
+        <div class="box post-1x1">Post 17</div>
+        <div class="box post-1x1">Post 18</div>
+        <div class="box post-1x1">Post 19</div>
+        <div class="box post-1x1">Post 20</div>
+        <div class="box post-1x1">Post 21</div>
+        <div class="box post-1x1">Post 22</div>
+        <div class="box post-1x1">Post 23</div>
+        <div class="box post-1x1">Post 24</div>
+        <div class="box post-1x1">Post 25</div>
+        <div class="box post-1x1">Post 26</div>
+        <div class="box post-1x1">Post 27</div>
+        <div class="box post-1x1">Post 28</div>
+        <div class="box post-1x1">Post 29</div>
+        <div class="box post-1x1">Post 30</div>
+
+        <div style="display: none;">
+            <div class="box filler filler-style-1">Filler Block 1</div>
+            <div class="box filler filler-style-2">Filler Block 2</div>
+        </div>
+
+    </div>
+
+</div>
+
+<button class="append-more-button" onclick="appendMorePosts()">Append More Posts</button>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="js/mason.min.js"></script>
+<script>
+
+// Stores the page number
+var page_number = 1;
+
+$(document).ready(function(){
+
+    $("#page-"+page_number).mason({
+        itemSelector: '.box',
+        ratio: 1,
+        sizes: [
+            [1, 1]
+        ],
+        promoted: [
+            ['post-1x1', 1, 1],
+            ['post-1x2', 1, 2],
+            ['post-2x1', 2, 1],
+            ['post-2x2', 2, 2]
+        ],
+        columns: [
+            [0, 720, 1],
+            [720, 768, 2],
+            [768, 992, 3],
+            [992, 1200, 4]
+        ],
+        filler: {
+            itemSelector: '.filler',
+            filler_class: 'injected-filler'
+        },
+        gutter: 10,
+        layout: 'fluid'
+    });
+
+});
+
+/**
+ * Simply returns either 1 or 2
+ * Used to give the illusion of
+ * different post sizes coming
+ * from an AJAX call.
+ * @returns {number}
+ */
+function oneOrTwo(){
+    return Math.floor(Math.random() * 2) + 1;
+}
+
+/**
+ * Checks to see if a value is
+ * even, this is just to give
+ * an alternating BG colour
+ * on different pages.
+ * @returns {boolean}
+ */
+function isEven(value) {
+    return (value%2 === 0);
+}
+
+/**
+ * When this function is called
+ * it simply increments the
+ * page_number global, creates a
+ * new page container div, appends
+ * the new page container div to
+ * the main wrapper, inserts a load
+ * of new posts, with random sizes
+ * (with the help of oneOrTwo(),
+ * and then calls mason.
+ */
+function appendMorePosts(){
+
+    // Increment page number global
+    page_number++;
+
+    // Alternates page colour for debugging purposes
+    var page_style_class = 'page-style-1';
+    if (isEven(page_number)){
+        page_style_class = 'page-style-2';
+    }
+
+    // Create and append a unique new page container div to the main wrapper
+    var new_page = $('<div id="page-' + page_number + '" class="container '+page_style_class+'">');
+    $('#wrapper').append(new_page);
+
+    // Append 30 new posts to the newly created page, also adding more filler blocks at the bottom
+    $('#page-'+page_number).html('' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 1</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 2</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 3</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 4</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 5</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 6</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 7</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 8</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 9</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 10</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 11</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 12</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 13</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 14</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 15</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 16</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 17</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 18</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 19</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 20</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 21</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 22</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 23</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 24</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 25</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 26</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 27</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 28</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 29</div>' +
+    '<div class="box post-1x'+oneOrTwo()+'">Post 30</div>' +
+    '<div style="display: none;">' +
+    '<div class="box filler filler-style-3">Filler Block '+((page_number*2)-1)+'</div>' +
+    '<div class="box filler filler-style-4">Filler Block '+((page_number*2)-1)+'</div>' +
+    '</div>');
+
+    // Call mason
+    $("#page-"+page_number).mason({
+        itemSelector: '.box',
+        ratio: 1,
+        sizes: [
+            [1, 1]
+        ],
+        promoted: [
+            ['post-1x1', 1, 1],
+            ['post-1x2', 1, 2],
+            ['post-2x1', 2, 1],
+            ['post-2x2', 2, 2]
+        ],
+        columns: [
+            [0, 720, 1],
+            [720, 768, 2],
+            [768, 992, 3],
+            [992, 1200, 4]
+        ],
+        filler: {
+            itemSelector: '.filler',
+            filler_class: 'injected-filler'
+        },
+        gutter: 10,
+        layout: 'fluid'
+    });
+
+}
+
+</script>
+</body>
+</html>
