@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Mason Destroy Test Page</title>
+    <style>
+
+        #left {
+            float: left;
+            width: 50%;
+            background-color: lightblue;
+        }
+
+        #right {
+            float: left;
+            width: 50%;
+            background-color: lightcoral;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .box {
+            float: left;
+            background-color: #737373;
+            position: relative;
+        }
+
+        .filler {
+            float: left;
+            position: relative;
+        }
+
+        .filler-style-1 {
+            background-color: #89e279;
+        }
+
+        .filler-style-2 {
+            background-color: #ebcb74;
+        }
+
+        .leftButton {
+            float: left;
+            width: 50%;
+            background-color: lightblue;
+            margin-bottom: 50px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .rightButton {
+            float: left;
+            width: 50%;
+            background-color: lightcoral;
+            margin-bottom: 50px;
+            color: white;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <button class="leftButton" onclick="removeLeft()">Destroy Left</button>
+    <button class="rightButton" onclick="removeRight()">Destroy Right</button>
+
+    <div id="left" class="container">
+
+        <div class="box post-1x1">Post 1</div>
+        <div class="box post-1x1">Post 2</div>
+        <div class="box post-1x2">Post 3</div>
+        <div class="box post-1x1">Post 4</div>
+        <div class="box post-1x2">Post 5</div>
+        <div class="box post-1x1">Post 6</div>
+        <div class="box post-1x1">Post 7</div>
+        <div class="box post-1x1">Post 8</div>
+        <div class="box post-1x1">Post 9</div>
+        <div class="box post-1x2">Post 10</div>
+        <div class="box post-1x1">Post 11</div>
+        <div class="box post-1x1">Post 12</div>
+        <div class="box post-1x1">Post 13</div>
+        <div class="box post-1x1">Post 14</div>
+        <div class="box post-1x1">Post 15</div>
+        <div class="box post-1x1">Post 16</div>
+        <div class="box post-1x2">Post 17</div>
+        <div class="box post-1x2">Post 18</div>
+        <div class="box post-1x1">Post 19</div>
+        <div class="box post-1x1">Post 20</div>
+        <div class="box post-1x1">Post 21</div>
+        <div class="box post-1x2">Post 22</div>
+        <div class="box post-1x1">Post 23</div>
+        <div class="box post-1x1">Post 24</div>
+        <div class="box post-1x2">Post 25</div>
+        <div class="box post-1x1">Post 26</div>
+        <div class="box post-1x2">Post 27</div>
+        <div class="box post-1x1">Post 28</div>
+        <div class="box post-1x1">Post 29</div>
+        <div class="box post-1x1">Post 30</div>
+
+        <div style="display: none;">
+            <div class="box filler filler-style-1">Filler Block 1</div>
+            <div class="box filler filler-style-2">Filler Block 2</div>
+        </div>
+
+    </div>
+
+    <div id="right" class="container">
+
+        <div class="box post-1x1">Post 1</div>
+        <div class="box post-1x1">Post 2</div>
+        <div class="box post-1x2">Post 3</div>
+        <div class="box post-1x1">Post 4</div>
+        <div class="box post-1x2">Post 5</div>
+        <div class="box post-1x1">Post 6</div>
+        <div class="box post-1x1">Post 7</div>
+        <div class="box post-1x1">Post 8</div>
+        <div class="box post-1x1">Post 9</div>
+        <div class="box post-1x2">Post 10</div>
+        <div class="box post-1x1">Post 11</div>
+        <div class="box post-1x1">Post 12</div>
+        <div class="box post-1x1">Post 13</div>
+        <div class="box post-1x1">Post 14</div>
+        <div class="box post-1x1">Post 15</div>
+        <div class="box post-1x1">Post 16</div>
+        <div class="box post-1x2">Post 17</div>
+        <div class="box post-1x2">Post 18</div>
+        <div class="box post-1x1">Post 19</div>
+        <div class="box post-1x1">Post 20</div>
+        <div class="box post-1x1">Post 21</div>
+        <div class="box post-1x2">Post 22</div>
+        <div class="box post-1x1">Post 23</div>
+        <div class="box post-1x1">Post 24</div>
+        <div class="box post-1x2">Post 25</div>
+        <div class="box post-1x1">Post 26</div>
+        <div class="box post-1x2">Post 27</div>
+        <div class="box post-1x1">Post 28</div>
+        <div class="box post-1x1">Post 29</div>
+        <div class="box post-1x1">Post 30</div>
+
+        <div style="display: none;">
+            <div class="box filler filler-style-1">Filler Block 1</div>
+            <div class="box filler filler-style-2">Filler Block 2</div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="js/mason.min.js"></script>
+<script>
+
+    var _leftInstance = null;
+    var _rightInstance = null;
+
+    function removeLeft(){
+        _leftInstance.destroy();
+        _leftInstance = null;
+        console.log('LEFT: destroyed');
+    }
+
+    function removeRight(){
+        _rightInstance.destroy();
+        _rightInstance = null;
+        console.log('RIGHT: destroyed');
+    }
+
+    $(document).ready(function(){
+
+        _leftInstance = $("#left").mason({
+            itemSelector: '.box',
+            ratio: 1,
+            sizes: [
+                [1, 1]
+            ],
+            promoted: [
+                ['post-1x1', 1, 1],
+                ['post-1x2', 1, 2],
+                ['post-2x1', 2, 1],
+                ['post-2x2', 2, 2]
+            ],
+            columns: [
+                [0, 200, 1],
+                [200, 400, 2],
+                [400, 1200, 3]
+            ],
+            filler: {
+                itemSelector: '.filler',
+                filler_class: 'injected-filler'
+            },
+            gutter: 10,
+            layout: 'fluid',
+            randomFillers: true
+        }, function() {
+            console.log('LEFT: Layout...');
+        });
+
+        _rightInstance = $("#right").mason({
+            itemSelector: '.box',
+            ratio: 1,
+            sizes: [
+                [1, 1]
+            ],
+            promoted: [
+                ['post-1x1', 1, 1],
+                ['post-1x2', 1, 2],
+                ['post-2x1', 2, 1],
+                ['post-2x2', 2, 2]
+            ],
+            columns: [
+                [0, 200, 1],
+                [200, 400, 2],
+                [400, 1200, 3]
+            ],
+            filler: {
+                itemSelector: '.filler',
+                filler_class: 'injected-filler'
+            },
+            gutter: 10,
+            layout: 'fluid',
+            randomFillers: true
+        }, function() {
+            console.log('RIGHT: Layout...');
+        });
+
+    });
+
+</script>
+</body>
+</html>
